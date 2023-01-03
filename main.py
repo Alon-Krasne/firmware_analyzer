@@ -48,6 +48,14 @@ def get_all_files(dir_path: Union[Path, str] = Path("./test_files")) -> List[Pat
     return _files
 
 
+def write_results_to_csv(results: List[FileTokens], filename: str = "results.csv"):
+    sorted_result = sorted(results, key=lambda x: x.path)
+    with open(filename, "w") as f:
+        f.write(CSV_TITLE)
+        for result in sorted_result:
+            f.writelines(result.to_csv_lines())
+
+
 def analyze_document_tokens_in_file(file_path: Path) -> FileTokens:
     with open(file_path, "r") as f:
         file_content = f.read()
@@ -56,14 +64,6 @@ def analyze_document_tokens_in_file(file_path: Path) -> FileTokens:
     count = Counter(appearances)
 
     return FileTokens(path=file_path, tokens=dict(count))
-
-
-def write_results_to_csv(results: List[FileTokens], filename: str = "results.csv"):
-    sorted_result = sorted(results, key=lambda x: x.path)
-    with open(filename, "w") as f:
-        f.write(CSV_TITLE)
-        for result in sorted_result:
-            f.writelines(result.to_csv_lines())
 
 
 def analyze_firmware(directory_path: str, csv_output_path: str):
