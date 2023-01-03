@@ -76,6 +76,6 @@ def analyze_firmware(directory_path: str, csv_output_path: str):
     write_results_to_csv(results=result, filename=csv_output_path)
 
 
-if __name__ == '__main__':  # Compare between the main functions time
+if __name__ == '__main__':
     args = parse_arguments()
     exit(analyze_firmware(args.input_dir, args.output_csv))
